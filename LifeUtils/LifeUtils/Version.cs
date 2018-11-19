@@ -2,7 +2,7 @@
 
 // 
 //        LifeUtils - LifeUtils - Version.cs
-//                  13.11.2018 12:12
+//                  19.11.2018 06:12
 
 #endregion
 
@@ -50,7 +50,7 @@ namespace LifeUtils
                 throw new ArgumentOutOfRangeException(nameof(version),
                     "Versions must have a minimum of 2 and a maximum of 3 numbers (" + version.Length +
                     " numbers given)");
-            for (int i = 0; i < version.Length; i++) _version[i] = version[i];
+            for (var i = 0; i < version.Length; i++) _version[i] = version[i];
             _suffix = null;
         }
 
@@ -72,18 +72,18 @@ namespace LifeUtils
         public Version(string version)
         {
             if (version == null) throw new ArgumentNullException(nameof(version));
-            Match match = VersionRegex.Match(version.Trim());
+            var match = VersionRegex.Match(version.Trim());
             if (match.Length < 1)
                 throw new ArgumentOutOfRangeException("'" + version + "' is not a valid version string");
-            for (int i = 0; i < _version.Length; i++)
+            for (var i = 0; i < _version.Length; i++)
                 if (match.Groups.Count > i + 1)
                 {
-                    string v = match.Groups[i + 1].Value;
+                    var v = match.Groups[i + 1].Value;
                     if (!string.IsNullOrEmpty(v))
                         _version[i] = int.Parse(v);
                 }
 
-            string sfx =
+            var sfx =
                 match.Groups[match.Groups.Count].ToString();
             _suffix = string.IsNullOrEmpty(sfx) ? null : sfx;
         }
@@ -98,7 +98,7 @@ namespace LifeUtils
         {
             if (other is null)
                 return 1;
-            for (int i = 0; i < _version.Length; i++)
+            for (var i = 0; i < _version.Length; i++)
             {
                 if (_version[i] > other._version[i])
                     return 1;
@@ -191,7 +191,7 @@ namespace LifeUtils
         /// <returns>The hash code of this version.</returns>
         public override int GetHashCode()
         {
-            int hashCode = 1359330549;
+            var hashCode = 1359330549;
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(_suffix);
             hashCode = hashCode * -1521134295 + EqualityComparer<int[]>.Default.GetHashCode(_version);
             return hashCode;

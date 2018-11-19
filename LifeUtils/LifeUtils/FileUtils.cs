@@ -2,7 +2,7 @@
 
 // 
 //        LifeUtils - LifeUtils - FileUtils.cs
-//                  13.11.2018 12:12
+//                  19.11.2018 06:12
 
 #endregion
 
@@ -53,23 +53,23 @@ namespace LifeUtils
         {
             try
             {
-                string javaHome = Environment.GetEnvironmentVariable("JAVA_HOME");
+                var javaHome = Environment.GetEnvironmentVariable("JAVA_HOME");
                 if (!string.IsNullOrEmpty(javaHome) && !string.IsNullOrWhiteSpace(javaHome))
                     return javaHome;
 
-                string jreHome = Environment.GetEnvironmentVariable("JRE_HOME");
+                var jreHome = Environment.GetEnvironmentVariable("JRE_HOME");
                 if (!string.IsNullOrEmpty(jreHome) && !string.IsNullOrWhiteSpace(jreHome))
                     return jreHome;
 
-                string jdkHome = Environment.GetEnvironmentVariable("JDK_HOME");
+                var jdkHome = Environment.GetEnvironmentVariable("JDK_HOME");
                 if (!string.IsNullOrEmpty(jdkHome) && !string.IsNullOrWhiteSpace(jdkHome))
                     return jdkHome;
 
-                string registryPath = GetJavaHomeFromRegistry()?.Trim();
+                var registryPath = GetJavaHomeFromRegistry()?.Trim();
                 if (!string.IsNullOrEmpty(registryPath) && !string.IsNullOrWhiteSpace(registryPath))
                     return registryPath;
 
-                string processPath = GetJavaHomeFromConsole();
+                var processPath = GetJavaHomeFromConsole();
 
                 return !string.IsNullOrEmpty(processPath) && !string.IsNullOrWhiteSpace(processPath)
                     ? processPath
@@ -88,7 +88,7 @@ namespace LifeUtils
         /// <returns>The java home from console.</returns>
         public static string GetJavaHomeFromConsole()
         {
-            Process process = new Process
+            var process = new Process
             {
                 StartInfo = new ProcessStartInfo
                 {
@@ -104,7 +104,7 @@ namespace LifeUtils
 
             process.Start();
 
-            string javaHome = process.StandardOutput.ReadToEnd();
+            var javaHome = process.StandardOutput.ReadToEnd();
 
             try
             {
@@ -129,10 +129,10 @@ namespace LifeUtils
 
             try
             {
-                using (RegistryKey rk = Registry.LocalMachine.OpenSubKey(javaKey))
+                using (var rk = Registry.LocalMachine.OpenSubKey(javaKey))
                 {
-                    string currentVersion = rk?.GetValue("CurrentVersion").ToString();
-                    using (RegistryKey key = rk?.OpenSubKey(currentVersion))
+                    var currentVersion = rk?.GetValue("CurrentVersion").ToString();
+                    using (var key = rk?.OpenSubKey(currentVersion))
                     {
                         return key?.GetValue("JavaHome").ToString();
                     }
@@ -142,10 +142,10 @@ namespace LifeUtils
             {
                 try
                 {
-                    using (RegistryKey rk = Registry.CurrentUser.OpenSubKey(javaKey))
+                    using (var rk = Registry.CurrentUser.OpenSubKey(javaKey))
                     {
-                        string currentVersion = rk?.GetValue("CurrentVersion").ToString();
-                        using (RegistryKey key = rk?.OpenSubKey(currentVersion))
+                        var currentVersion = rk?.GetValue("CurrentVersion").ToString();
+                        using (var key = rk?.OpenSubKey(currentVersion))
                         {
                             return key?.GetValue("JavaHome").ToString();
                         }
@@ -165,7 +165,7 @@ namespace LifeUtils
         /// <param name="path">The directories path to delete it.</param>
         public static void DeleteDirectory(string path)
         {
-            foreach (string directory in Directory.GetDirectories(path)) DeleteDirectory(directory);
+            foreach (var directory in Directory.GetDirectories(path)) DeleteDirectory(directory);
             try
             {
                 Directory.Delete(path, true);

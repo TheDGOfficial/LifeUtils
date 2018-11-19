@@ -2,7 +2,7 @@
 
 // 
 //        LifeUtils - LifeUtils - Configurable.cs
-//                  13.11.2018 12:12
+//                  19.11.2018 06:12
 
 #endregion
 
@@ -70,8 +70,8 @@ namespace LifeUtils.Annotations
             PropertyInfo[] propertyInfos =
                 type.GetProperties(flags);
 
-            foreach (FieldInfo fieldInfo in fieldInfos)
-            foreach (ConfigurableAttribute attr in fieldInfo.GetCustomAttributes<ConfigurableAttribute>(true))
+            foreach (var fieldInfo in fieldInfos)
+            foreach (var attr in fieldInfo.GetCustomAttributes<ConfigurableAttribute>(true))
             {
                 if (attr.Key.Equals("")) attr.Key = fieldInfo.Name;
                 if (!config.ContainsKey(attr.Key, section))
@@ -82,8 +82,8 @@ namespace LifeUtils.Annotations
                 break;
             }
 
-            foreach (PropertyInfo propertyInfo in propertyInfos)
-            foreach (ConfigurableAttribute attr in propertyInfo.GetCustomAttributes<ConfigurableAttribute>(true))
+            foreach (var propertyInfo in propertyInfos)
+            foreach (var attr in propertyInfo.GetCustomAttributes<ConfigurableAttribute>(true))
             {
                 if (attr.Key.Equals("")) attr.Key = propertyInfo.Name;
                 if (!config.ContainsKey(attr.Key, section))

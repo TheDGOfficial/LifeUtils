@@ -2,7 +2,7 @@
 
 // 
 //        LifeUtils - LifeUtils - IniHandler.cs
-//                  13.11.2018 12:12
+//                  19.11.2018 06:12
 
 #endregion
 
@@ -42,7 +42,7 @@ namespace LifeUtils
         /// <returns>The value of the key.</returns>
         public string Read(string key, string section)
         {
-            StringBuilder retVal = new StringBuilder(4096);
+            var retVal = new StringBuilder(4096);
             SafeNativeMethods.GetPrivateProfileString(section, key, "", retVal, 4096, _path);
             return retVal.ToString();
         }
@@ -74,7 +74,7 @@ namespace LifeUtils
         /// <returns>True if the ini file contains specified key in the specified section.</returns>
         public bool ContainsKey(string key, string section)
         {
-            string value = Read(key, section);
+            var value = Read(key, section);
             return !string.IsNullOrEmpty(value);
         }
 

@@ -2,7 +2,7 @@
 
 // 
 //        LifeUtils - LifeUtils - Localizable.cs
-//                  13.11.2018 12:12
+//                  19.11.2018 06:12
 
 #endregion
 
@@ -72,8 +72,8 @@ namespace LifeUtils.Annotations
             PropertyInfo[] propertyInfos =
                 type.GetProperties(flags);
 
-            foreach (FieldInfo fieldInfo in fieldInfos)
-            foreach (LocalizableAttribute attr in fieldInfo.GetCustomAttributes<LocalizableAttribute>(true))
+            foreach (var fieldInfo in fieldInfos)
+            foreach (var attr in fieldInfo.GetCustomAttributes<LocalizableAttribute>(true))
             {
                 if (attr.Key.Equals("")) attr.Key = fieldInfo.Name;
                 if (!config.ContainsKey(attr.Key, section))
@@ -84,8 +84,8 @@ namespace LifeUtils.Annotations
                 break;
             }
 
-            foreach (PropertyInfo propertyInfo in propertyInfos)
-            foreach (LocalizableAttribute attr in propertyInfo.GetCustomAttributes<LocalizableAttribute>(true))
+            foreach (var propertyInfo in propertyInfos)
+            foreach (var attr in propertyInfo.GetCustomAttributes<LocalizableAttribute>(true))
             {
                 if (attr.Key.Equals("")) attr.Key = propertyInfo.Name;
                 if (!config.ContainsKey(attr.Key, section))
