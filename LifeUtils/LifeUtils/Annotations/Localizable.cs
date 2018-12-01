@@ -2,7 +2,7 @@
 
 // 
 //        LifeUtils - LifeUtils - Localizable.cs
-//                  19.11.2018 06:12
+//                  01.12.2018 05:24
 
 #endregion
 
@@ -66,10 +66,10 @@ namespace LifeUtils.Annotations
             const string section =
                 "Localization";
 
-            FieldInfo[] fieldInfos =
+            var fieldInfos =
                 type.GetFields(flags);
 
-            PropertyInfo[] propertyInfos =
+            var propertyInfos =
                 type.GetProperties(flags);
 
             foreach (var fieldInfo in fieldInfos)

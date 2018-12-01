@@ -2,7 +2,7 @@
 
 // 
 //        LifeUtils - LifeUtils - Configurable.cs
-//                  19.11.2018 06:12
+//                  01.12.2018 05:24
 
 #endregion
 
@@ -64,10 +64,10 @@ namespace LifeUtils.Annotations
             const BindingFlags flags =
                 BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic;
 
-            FieldInfo[] fieldInfos =
+            var fieldInfos =
                 type.GetFields(flags);
 
-            PropertyInfo[] propertyInfos =
+            var propertyInfos =
                 type.GetProperties(flags);
 
             foreach (var fieldInfo in fieldInfos)
