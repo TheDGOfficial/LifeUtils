@@ -2,7 +2,7 @@
 
 // 
 //        LifeUtils - LifeUtils - IniHandler.cs
-//                  01.12.2018 05:24
+//                  03.12.2018 02:12
 
 #endregion
 
@@ -10,7 +10,7 @@ namespace LifeUtils
 {
     #region Imports
 
-    using System.Collections.Generic;
+    using System;
     using System.IO;
     using System.Text;
 
@@ -20,7 +20,7 @@ namespace LifeUtils
     /// <summary>
     ///     The .ini file API for C#.
     /// </summary>
-    public struct IniHandler : IConfigFile
+    public struct IniHandler : IConfigFile, IEquatable<IniHandler>
     {
         /// <summary>
         ///     The .ini file's path / name.
@@ -89,18 +89,36 @@ namespace LifeUtils
         /// </summary>
         /// <param name="obj">The possible ini handler to check.</param>
         /// <returns>True if object is a ini handler and equals to this object.</returns>
-        public override bool Equals(object obj) => obj is IniHandler handler && _path == handler._path;
+        public override bool Equals(object obj) => !(obj is null) && obj is IniHandler other && Equals(other);
 
         /// <summary>
         ///     Gets the hash code of this ini handler.
         /// </summary>
         /// <returns>The hash code of this ini handler.</returns>
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                return 2090457805 + EqualityComparer<string>.Default.GetHashCode(_path);
-            }
-        }
+        public override int GetHashCode() => _path != null ? StringComparer.CurrentCulture.GetHashCode(_path) : 0;
+
+        /// <inheritdoc />
+        /// <summary>
+        ///     Checks if this ini handler equals to another ini handler.
+        /// </summary>
+        /// <param name="other">The other ini handler to check.</param>
+        /// <returns>True if the two ini handlers are same.</returns>
+        public bool Equals(IniHandler other) => string.Equals(_path, other._path, StringComparison.CurrentCulture);
+
+        /// <summary>
+        ///     Checks if the two ini handlers are same.
+        /// </summary>
+        /// <param name="left">The left ini handler.</param>
+        /// <param name="right">The right ini handler.</param>
+        /// <returns>True if the two ini handlers are same.</returns>
+        public static bool operator ==(IniHandler left, IniHandler right) => left.Equals(right);
+
+        /// <summary>
+        ///     Checks if the two ini handlers are not same.
+        /// </summary>
+        /// <param name="left">The left ini handler.</param>
+        /// <param name="right">The right ini handler.</param>
+        /// <returns>True if the two ini handlers are not same.</returns>
+        public static bool operator !=(IniHandler left, IniHandler right) => !left.Equals(right);
     }
 }

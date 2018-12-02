@@ -2,7 +2,7 @@
 
 // 
 //        LifeUtils - LifeUtils - Version.cs
-//                  01.12.2018 05:24
+//                  03.12.2018 02:12
 
 #endregion
 
@@ -243,5 +243,21 @@ namespace LifeUtils
         /// <param name="other">A other version to check it.</param>
         /// <returns>True if this version is smaller than the given version.</returns>
         public static bool operator <(Version one, Version other) => one.IsSmallerThan(other);
+
+        /// <summary>
+        ///     Checks if this version is higher than or equal to a other version.
+        /// </summary>
+        /// <param name="one">This version.</param>
+        /// <param name="other">A other version to check it.</param>
+        /// <returns>True if this version is higher than or equal to the given version.</returns>
+        public static bool operator >=(Version one, Version other) => one.CompareTo(other) >= 0;
+
+        /// <summary>
+        ///     Checks if this version is smaller than or equal to a other version.
+        /// </summary>
+        /// <param name="one">This version.</param>
+        /// <param name="other">A other version to check it.</param>
+        /// <returns>True if this version is smaller than or equal to the given version.</returns>
+        public static bool operator <=(Version one, Version other) => one.CompareTo(other) <= 0;
     }
 }
